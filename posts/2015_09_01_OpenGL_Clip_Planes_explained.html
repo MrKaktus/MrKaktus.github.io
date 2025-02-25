@@ -1,0 +1,175 @@
+**OpenGL Clip Planes explained**
+*1 September 2015*
+
+User Clip Planes is mechanism provided by OpenGL that allows application to provide information about additional clipping planes, against which rendered geometry will be clipped. Each user specified clip plane can be turned on and off separately, and for each of them four plane equation coefficients can be provided using OpenGL API:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ C
+void glEnable(GLenum cap);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+where cap is GL_CLIP_DISTANCEi ( i == 0 to N-1 )
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ C
+void glClipPlane(GLenum plane, const GLdouble* equation);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+where plane is GL_CLIP_PLANEi ( i == 0 to N-1 )
+
+Number of clip planes, currently supported by the HW, can be queried using API enum GL_MAX_CLIP_DISTANCES 
+(GL_MAX_CLIP_PLANES in deprecated model), or by using built in variable gl_MaxClipDistances in GLSL shader 
+(gl_MaxClipPlanes in deprecated model). Each OpenGL and OpenGL ES specification defines minimum amount of 
+user clip planes that need to be supported by the hardware:
+
+<!--
+OpenGL | GLSL | GL_MAX_CLIP_PLANES | gl_MaxClipDistances (gl_MaxClipPlanes)
+-------|------|--------------------|---------------------------------------
+1.0 – 1.5 | None | 6+* | None
+2.0 | 1.10 | 6+ | 6+
+2.1 | 1.20 | | 
+3.0 | 1.30 | 8+ | 8+
+3.1 | 1.40 | |
+3.2 | 1.50 | |
+3.3 | 3.30 | |
+4.0 | 4.00 | | 
+… | | |
+4.5 | 4.50 | |
+-->
+
+<!--Customizer CSS--> 
+<style type="text/css">
+table {
+  border-collapse: collapse;
+  margin: auto;
+}
+table, th, td {
+  border: 1px solid;
+  padding: 15px;
+}
+</style>
+<!--/Customizer CSS-->
+
+<table>
+<tbody>
+<tr>
+<td width="73">OpenGL</td>
+<td width="76">GLSL</td>
+<td width="173">GL_MAX_CLIP_PLANES</td>
+<td width="137">gl_MaxClipDistances (gl_MaxClipPlanes)</td>
+</tr>
+<tr>
+<td width="73">1.0 – 1.5</td>
+<td width="76">None</td>
+<td width="173">6+<b>* </b></td>
+<td width="137">None</td>
+</tr>
+<tr>
+<td width="73">2.0</td>
+<td width="76">1.10</td>
+<td rowspan="2" width="173">6+</td>
+<td rowspan="2" width="137">6+</td>
+</tr>
+<tr>
+<td width="73">2.1</td>
+<td width="76">1.20</td>
+</tr>
+<tr>
+<td width="73">3.0</td>
+<td width="76">1.30</td>
+<td rowspan="7" width="173">8+</td>
+<td rowspan="7" width="137">8+</td>
+</tr>
+<tr>
+<td width="73">3.1</td>
+<td width="76">1.40</td>
+</tr>
+<tr>
+<td width="73">3.2</td>
+<td width="76">1.50</td>
+</tr>
+<tr>
+<td width="73">3.3</td>
+<td width="76">3.30</td>
+</tr>
+<tr>
+<td width="73">4.0</td>
+<td width="76">4.00</td>
+</tr>
+<tr>
+<td colspan="2" width="149">…</td>
+</tr>
+<tr>
+<td width="73">4.5</td>
+<td width="76">4.50</td>
+</tr>
+</tbody>
+</table>
+*) N+ means support for minimum N elements or more
+
+<table>
+<tbody>
+<tr>
+<td width="83">OpenGL ES</td>
+<td width="66">ESSL</td>
+<td width="173">GL_MAX_CLIP_PLANES</td>
+<td width="120">gl_MaxClipPlanes</td>
+</tr>
+<tr>
+<td width="83">1.0</td>
+<td rowspan="2" width="66">None</td>
+<td rowspan="3" width="173">1+<b>* </b></td>
+<td rowspan="2" width="120">None</td>
+</tr>
+<tr>
+<td width="83">1.1</td>
+</tr>
+<tr>
+<td width="83">2.0</td>
+<td width="66">1.10</td>
+<td width="120">1+</td>
+</tr>
+<tr>
+<td width="83">3.0</td>
+<td width="66">3.00</td>
+<td width="173">0</td>
+<td width="120">0</td>
+</tr>
+</tbody>
+</table>
+*) N+ means support for minimum N elements or more
+
+Current statistics about actual HW support can be found under this link: [http://feedback.wildfiregames.com/report/opengl/](http://feedback.wildfiregames.com/report/opengl/) (search for GL_MAX_CLIP_PLANES).
+
+There are three usage models that support user specified Clip Planes in GLSL (or ARB assembly):
+
+Mode | Available in | Description
+-----|--------------|-------------
+Default	| OpenGL 1.0 – 3.1, OpenGL 3.2+ in Compatibility Mode | By default clipping is performed by the last active geometry stage (it can be Vertex Shader, Tessellation Evaluation Shader or Geometry Shader). Final vertex position stored in gl_Position is used to compute clip distances of this vertex for each active user clip plane.
+Specified Clip Vertex | OpenGL 2.0 – 3.1, OpenGL 3.2+ in Compatiblity Mode | If there is gl_ClipVertex specified in the last geometry stage, it is used for computation of clip distances instead of vertex stored in gl_Position.
+Specified Clip Distances | OpenGL 3.2+ | If there is gl_ClipDistance[] specified in the last geometry stage, then it’s value is immediately treated as a result of clip distance calculation.
+
+Why there are three different modes that can be used? It’s all because of legacy support. 
+At the beginning OpenGL was Fixed Function state machine based API. There were no shaders, 
+and specifying parameters of plane equations for user clip planes through the API calls
+was the way to go. Thats „default” mode. 
+
+Then OpenGL started to support shaders, but was still focused more on fixed functionality. 
+With introduction of shaders, there was idea that user can specify different position for
+clipping than for transformation and rasterization. That’s how second mode showed up. 
+
+Time went by, and GPU’s transformed from Fixed Function units to fully programmable processors. 
+Most of old Fixed Function mechanisms are now emulated in shaders, by additional instructions 
+inserted to shader code by the driver. When Fixed Function state changes (like for example 
+turning on and off one of user clip planes) shader code needs to be recompiled. This means 
+that shader is tied up with some Fixed Function state, and each state change requires shader 
+recompilation (which in most cases happen during frame rendering and causes stuttering of 
+animation). Such state is called Non Orthogonal State and both previous Clip Plane modes had it. 
+
+Therefore third mode was introduced, where shader computes vertex distance from clip plane on 
+it’s own and only outputs result of this computation – clip distance. For each user specified 
+Clip Plane, clip distance less than 0.0, means that current vertex is outside clipping plane 
+and should be rejected. Clip distance greater or equal to 0.0 means that vertex is inside 
+clipping plane and it passed test for that plane.
+
+OpenGL 4.5 introduces also notion of Cull Distances for compatibility with DirectX.
+
+<!-- Markdeep: --><style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="markdeep.min.js" charset="utf-8"></script><script src="https://morgan3d.github.io/markdeep/latest/markdeep.min.js" charset="utf-8"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
