@@ -1,0 +1,58 @@
+**VR Workstation**
+*15 January 2018*
+
+As I’m working in VR field, I’ve decided to build PC workstation for VR prototyping (and lets not cheat ourselves – VR gaming as well ;). I’m describing this configuration below, as it may be useful for other VR developers and enthusiasts. I’ve built it with two assumptions in mind:
+
+- mobility
+- no compromises (at least in limits of sanity 😉 )
+
+**HW Specification**
+
+- [Sentry PC case](http://zaber.com.pl/sentry/)
+- [Corsair SF600 SFX Power Supply](https://www.amazon.com/gp/product/B01CGI5M24/ref=oh_aui_detailpage_o09_s00?ie=UTF8&psc=1)
+- [Gigabyte Z370N WiFi (Rev. 1.0) LGA1151 (300 series) Mini-ITX](https://www.newegg.com/Product/Product.aspx?Item=N82E16813145046)
+- [Intel Core i7 8700K Coffee Lake 6-Core 3.7GHz (4.7GHz Turbo) LGA1151 (300 series) 95W](https://www.newegg.com/Product/Product.aspx?Item=N82E16819117827)
+- [Noctua Low-Profile Quiet CPU Cooler NH-L9i](https://www.amazon.com/gp/product/B009VCAJ7W/ref=oh_aui_detailpage_o07_s00?ie=UTF8&psc=1)
+- [Corsair Vengeance LPX 32GB (2x16GB) DDR4 2666Mhz (PC4-21300) C16](https://www.amazon.com/gp/product/B0134EW44S/ref=oh_aui_detailpage_o09_s00?ie=UTF8&psc=1)
+- [Samsung 960 EVO NVMe 500GB SSD M2 (MZ-V6E500BW)](https://www.amazon.com/gp/product/B01M20VBU7/ref=oh_aui_detailpage_o09_s01?ie=UTF8&psc=1)
+- [WD Blue 3D NAND 1TB SSD M2 2280 (WDS100T2B0B)](https://www.amazon.com/gp/product/B073SB2MXT/ref=oh_aui_detailpage_o09_s00?ie=UTF8&psc=1)
+- [2x WD Black 2.5″500GB HDD (WD5000LPLX equivalent)](https://www.amazon.com/Black-500GB-Performance-Mobile-Drive/dp/B00QFXOL5G/ref=sr_1_1?ie=UTF8&qid=1516051662&sr=8-1&keywords=wd+black+2.5+500gb). I've added those just because I had spare drives laying around.
+- [GeForce GTX 1080 Ti 11GB GDDR5X](https://www.amazon.com/gp/product/B06Y13N2B6/ref=oh_aui_detailpage_o04_s00?ie=UTF8&psc=1)
+- 2x [HDMI to DisplayPort adapter from Cable Matters](https://www.amazon.com/gp/product/B00K0UDYLM/ref=oh_aui_detailpage_o00_s00?ie=UTF8&psc=1)
+- 4x [Steam Controller Wireless Receiver](https://www.amazon.com/Steam-Controller-Wireless-Receiver-pc/dp/B01MA3JGQN)
+
+Keyboard, mouse and monitor:
+
+They were not part of the configuration, as I’ve reused old ones for now. Ideally monitor should have built-in 4 USB HUB (for Keyboard, Mouse, and 2 Steam Dongles).
+
+- Used: [Dell 24″ FullHD U2412Mb](https://www.amazon.com/Dell-UltraSharp-24-Inch-LED-Lit-Monitor/dp/B005JN9310/ref=sr_1_1?ie=UTF8&qid=1516054294&sr=8-1&keywords=u2412mb&th=1) (connected through DVI, 4x USB HUB)
+- Alternative 1: [Dell 32″ 4K UP3216Q](https://www.amazon.com/Dell-UltraSharp-UP3216Q-Screen-Monitor/dp/B016IBVKNU/ref=sr_1_1?ie=UTF8&qid=1516052340&sr=8-1&keywords=up3216q&th=1) (DisplayPort, 4x USB 3.0 HUB, with SD card reader)
+- Alternative 2: [Dell 43″ 4K P4317Q](https://www.amazon.com/Dell-Monitor-43-Multi-Client-P4317Q/dp/B01F80FSKS/ref=sr_1_1?ie=UTF8&qid=1516052604&sr=8-1&keywords=dell+43) (DisplayPort, 4x USB 3.0 HUB)
+
+CPU and thermals:
+
+I haven’t done deliding, and I’ve limited myself to using Noctua CPU Cooler with provided thermal compound. On maximum load, I saw CPU reaching 65°C and GPU reaching 74°C. On the other hand, when PC is not under load, it automatically dials down fans on not only CPU & GPU but also power supply itself, and on low loads, it turns off all those fans, which means that such PC configuration is very quiet most of the time.
+
+![](unnamed.jpg)
+
+Hard drives:
+
+I’ve bought 500GB NVMe SSD to store on it OS and all required applications, code repositories and tools. Additional 1TB NAND SSD is for storing assets, and optionally Oculus and SteamVR games. As I had still free space in the case, I’ve put there two additional WD Black 500GB HDD’s I had spare. In total it’s just 2.5TB of local storage, but I felt it’s enough for mobile use cases, and when used at home, I use WD Cloud external storage anyway.
+
+Video connections:
+
+Used EVGA card has 3 DisplayPort’s, one HDMI and one DVI connectors. Thats enough to connect 3 HMD’s (using 2 HDMI to DP adapters) and one display (through DP or DVI).
+
+![](DSC_2073.jpg)
+
+VR Setup
+
+The biggest win of this configuration is it’s ability to connect up to 3 HMD’s at the same time, together with 4K display. I’ve made experiement in which PC was driving at the same time 3 HMD sesions (Oculus Dash, SteamVR Home and Windows MR Home). Thanks to plenty of USB ports in the montherboard, and extra two USB ports in the front of the case, I was also able to connect 4 extra Steam Wireless dongles, and use them to pair in total: 2x Vive Controllers, 2x Knuckles and 2x Vive Trackers. To pair more than two controllers you just turn off previous ones and repeat pairing with re-plugged next set of dongles. Its the devices itself that remember dongle to which they are paired. This way once one set of controllers discharge you can immediately turn on another pair and continue playing (even when having just two dongles as multiple devices can pair to the same dongle). SteamVR had some issues with detecting them all at the same time, (sometimes only 5 were detected) but that’s enough for prototyping experiences with multiple tracked devices.
+
+![](ports.jpg)
+
+Mobility & „No Compromises”
+
+Sentry case is so small, it fits in laptop bag or backpack. Kacper Ząber who is producing Sentry case, pointed out that for travelling, it could be carried in [Pelican 1495 Laptop Case](https://www.amazon.com/Pelican-1495-Laptop-Case-Black/dp/B000KIDBO4?th=1) which provides extra protection. Together with Vive in small handy case, it allows easy travelling to trade shows and expo floors with PC powerful enough to present even unoptimized developer builds of VR apps. Used motherboard has also built-in WiFi adapter, so there will be no problems with internet connection in the field, as well as two Gigabit connections for stationary use. At the same time, at home, it allows work without any constrains. The only possible limitation here is fact that current Mini-ITX motherboards support only up to 32GB of RAM, which may be not enough for some UE4 developers, but that’s HW limitation that currently cannot be worked around. In terms of GPU selection, I’ve decided that sanity needs to win with hype, so I’ve picked 1080 TI, over Star Wars TITAN Xp or extremely expensive TITAN V.
+
+<!-- Markdeep: --><style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="markdeep.min.js" charset="utf-8"></script><script src="https://morgan3d.github.io/markdeep/latest/markdeep.min.js" charset="utf-8"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
