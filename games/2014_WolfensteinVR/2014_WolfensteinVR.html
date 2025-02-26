@@ -1,0 +1,49 @@
+**WolfensteinVR**
+*2014 (Windows, PC)*
+
+![](vr_logo.png) 
+
+<big>Why remake of Wolfenstein3D?</big>
+
+It was in fact first FPS, and as such it was a revolution, a beginning of new era. That’s also why I have so much sentiment to it. I though it would be fun to gave it new life at the advent of new medium – Virtual Reality. It is also important that the game mechanics are simple enough that they can be recreated without much time spent. It allowed me to focus on testing different VR game mechanics and hands reconstruction algorithm. Algorithm itself allows player to see his own hands in the game and use them to interact with environment like opening doors or punching enemies. More about it can be found in publication and lecture slides I’m preparing (coming soon).
+
+<big>Work done</big>
+
+At that time, I didn’t know any 2d artist that could help me with the artistic part of the remake, so I’ve ended up recreating textures using sprites from original game. To do so I’ve extracted original sprites using [ChaosEdit found in web](https://www.moddb.com/downloads/chaosedit-v127). I’ve converted each sprite to 24bpp bitmap and cleared corrupted ones from bad pixels left by idSoftware artists. At the end I’ve added binary transparency (to preserve sharp edges) in alpha channel and saved everything as PNG’s. From various reasons it couldn’t be done as batch processing so I needed to do that by hand. If you’re curious, there are more than 400 sprites and 100 textures in the game!
+
+For the purposes of VR remake, I needed to recreate title screen as 3D scene. To do so I needed to extract BJ as sprite, and supplement it with legs and feets. I’ve also created new „WolfensteinVR” logo based on original „Wolfenstein3D” one, and prepared game level that would resemble exactly the same place as in the title screen (which is in fact first level in the game). That’s how I learned a little bit of pixel-art ;). At the end I’ve placed player’s pivot, title sprite and other element’s in such 3D location’s that they exactly resemble original picture. You can see result of that work in video at the bottom of this page.
+
+![](titlescreen.png)
+
+<center>*Original Wolfenstein3D title screen (resolution 320 x 200 px).*</center>
+
+While I could extract original SFX samples as WAV files using the same ChaosEdit, I couldn’t do so with the music. Luckily there are other BJ fans out there, and I was able to use Scott Buckley remix of main menu music „Wondering About My Loved Ones”. I need to say that I was really impressed when I first heard it. With that remix in the game, Wolfenstein sounds like Hollywood blockbuster movie.
+
+<big>Implementation</big>
+
+First of all, it is not a port! I wrote whole game from scratch. I’ve never even looked at Wolfenstein3D source code, and that was the whole point in fact – to have fun while figuring out how to write all the mechanics. I’ve divided code development into several steps implemented one after another. First of all I haven’t got time to crack original level file format, so I’ve created new one, which allows editing of level files directly from notepad (they are also saved with *.txt extension for convenience). The drawback is that I couldn’t use original levels so I’ve created few on my own. When level is loaded, except of creating metadata for collision detection and game logic, all static fields are batched into one mesh which stores textures index in W coordinate of each vertex. During rendering this ID is extracted in the shader and used as index in texture array that contains textures of all wall types.
+
+Another interesting part is sprite rendering. All sprites of all animations are loaded into one texture array. Then all enemies are drawn with one draw call in similar way we draw particles. There is no Vertex Fetch, and all geometry is created in Geometry Shader, that for each „vertex” generates screen space quad and maps proper texture layer to it. Texture layer ID is calculated during AI and animation system update, and maps from current enemy animation frame. It is then encoded in m[3] [3] field of transformation matrix that is stored for each enemy in UBO. This gives us 256 enemy instances on Intel integrated graphics (that has maximum UBO size of 16KB) and 1024 instances on Nvidia and AMD (64KB UBO’s). Similar mechanism is used to draw all non-animated sprites in the game like tables, bones and so on. Because we’re preserving sharp pixelated edges of original sprites, we can just use alpha test and discard pixels that sample transparent texels (with disabled texture filtering). This way we don’t need to sort the enemies nor sprites as there is no real transparency and they can be all treated as solid objects.
+
+Last interesting part was to develop proper collision detection and visibility systems. Both player and enemies can shoot through open doors as well as over tables or barrels. I needed to decide which objects allow bullets to go through (like over the pile of bones) and which one don’t (like columns). It also complicated AI of enemies as they can now shoot from behind of some objects or try to walk around them. During development of all that mechanics, I’ve cheated a little bit only once when I looked at enemies strength on [Wolfenstein wiki](http://wolfenstein.wikia.com/wiki/Wolfenstein_3D), so that I didn’t need to balance it myself.
+
+<big>TL/DR</big>
+
+Unfortunately due to very likely IP claims I cannot publish this remake for download. But at least you can see final gameplay below. I’ve butchered Scott’s remake a little bit during creation of this clip but I hope he will forgive me that ;). Full unaltered version found it’s place in the game, and can be heard on [Scott’s website](http://www.scottbuckley.com.au/).
+
+![](https://youtu.be/QtrPuYeh_NY)
+
+<!--
+Embedded fullscreen link:
+https://www.youtube.com/embed/QtrPuYeh_NY?enablejsapi=1&autoplay=0&cc_load_policy=0&iv_load_policy=1&loop=0&modestbranding=0&rel=0&showinfo=1&fs=1&theme=dark&color=red&autohide=2&controls=2&playsinline=0&
+-->
+
+<center>*WolfensteinVR played in OculusDK2 with player hands reconstruction (recorded in 60Hz for YouTube).*</center>
+
+<!--
+!!! TODO
+    - Link to hands reconstruction paper.
+    - PC executable.
+-->
+
+<!-- Markdeep: --><style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="markdeep.min.js" charset="utf-8"></script><script src="https://morgan3d.github.io/markdeep/latest/markdeep.min.js" charset="utf-8"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
