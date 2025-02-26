@@ -1,0 +1,25 @@
+**Invaders Must Die!**
+*2012 (Blackberry OS 10, Z10)*
+<br>*2011 (iOS 5, iPhone 3GS/4, iPad and iPod Touch)*
+
+This game was originally released in February 2011 on iPhone 3GS/4, iPad and iPod Touch. The goal was to learn Objective-C and app development for iOS devices. While it is no longer available in AppStore, it had nice feature that the same application package could be installed on iPad, iPod and iPhone and it automatically detected device type at runtime. Depending on which device it was running, game was loading textures that were best matching native resolution and scaling UI to physical display size. Another nice feature, were 3D ship models that were rendered offline from top, and then displayed in the game as sprites to reduce vertex shader execution. As the game had a lot of alpha blended missles and explosions next performance bottleneck was fillrate.
+
+![](screenshoot11.png) ![](screenshoot41.png)
+
+<center>*Screenshots from original iPhone version (320 x 480 pixels)*</center>
+
+In September 2012 I’ve got interested with new Blackberry 10 OS that is based on QNX RTOS. I’ve got my Dev Alpha device and ported this game for BlackBerry Z10. As whole game is made by me, please be forgiving about „programmer graphic” ;).
+
+<center>
+[<img src="store_blackberry_small.png">](http://appworld.blackberry.com/webstore/content/21720781/?lang=en)
+</center>
+
+Black Berry app store does not exist anymore. Fortunately, both iOS and BlackBerry OS 10 versions of the game were developed using my multiplatform game engine. In fact iOS version of the game was developed and play tested almost entirely on PC, and tested on device itself only once a week. This significantly shortened development round-trip time. 
+
+<!--
+!!! TODO
+    - BAR file and instructions how to sideload it.
+    - PC executable.
+-->
+
+<!-- Markdeep: --><style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="markdeep.min.js" charset="utf-8"></script><script src="https://morgan3d.github.io/markdeep/latest/markdeep.min.js" charset="utf-8"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
