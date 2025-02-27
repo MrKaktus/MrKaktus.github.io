@@ -1,0 +1,72 @@
+**Proposition of new cache prefetch hint _MM_HINT_WT**
+*24 February 2015*
+
+There is plenty of algorithms in which CPU produces continuous blocks of new data (specifically when using Data Oriented Design). In such case we want to be sure that produced data will be transferred to RAM without disturbing CPU computation. Unfortunately this is not always the case in modern CPU architectures.
+
+First write to the given memory adress will cause so called write-miss. Write misses have no impact on CPU if given memory location is treated by caching mechanism as write-through (WT). Such mode means that written data will be transferred directly to RAM (if this memory region is also stored in cache, it will also update that cache line as well). Problems start if caching mechanism will decide to treat mentioned memory region as write-back (WB). Modern CPU caches try to predict patterns in which programs access memory, as well as reduce memory bandwitch and related power consumption. Write-back mode is used to postpone writes to RAM until they cannot be buffered any more. But to do that, mentioned memory region needs to be first loaded to cache, so that original data can be partially overwriten. Memory regions are treated as WB for eg. when it is possible that program will read and write to close memory locations frequently. In such situation, CPU first searches for local copy of given memory area in L1 data cache, then L2 and LLC’s (L3 and L4 if present), and if still cannot find it, checks if it is present in cache of other CPU’s. If it won’t find such copy in any of mentioned locations, it will read that memory block from RAM. In common situations it is still fine, because writes are scattered and caching mechanism can hold data for write in write-combine buffer (WCB), until cache line won’t be filled, without stalling the CPU. But in case of many writes to memory, caching mechanism will overflow it’s local storage, and as a result stall CPU on next write instruction until it won’t flush that queue. As we can see, while write-back caching model is useful in common situations, it can harm CPU performance of applications designed with DOD.
+
+Solution for such situation seems to be simple. We can use prefetch hints like <code>_MM_HINT_T0</code> to prefetch destination memory as well as we prefetch source data. Such solution is perfectly fine until we really need to squeeze last CPU tick’s and tock’s for computation. It’s almost sure we won’t be able to hide RAM latency with computations, so we want to utilize as much L1 data cache for source data as possible. Unfortunatelly we will waste aproximately between 30 and 50% of that cache on data that will be read from RAM just to be completly overwritten. If it is not bad already, that reads will also stall our CPU. And here we finally reach the point of this post. What we really want is new prefetch hint, let’s call it <code>_MM_HINT_WT</code>. We wold use it instead of <code>_MM_HINT_T0</code> to „prefetch” write destinations. When executed, it would inform CPU that we want to completly overwrite given memory region, and that it should be treated as write-through. Because we don’t need to wait for destination memory regions to be cached, we don’t need to prefetch them up-front, which frees mentioned 30~50% of cache that can now be used for source data. We’re also sure we won’t stall CPU due to write-misses. Of course it’s not guaranteed that CPU will take our prefetch hints into notice, but thats another story 🙂
+
+<big>TL/DR</big>
+
+WB – Write-Back (memory location is first read to cache, then modified for write)
+<br>WT – Write-Through (write directly to RAM, no write-miss )
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ C
+#include <mmintrin.h> // MMX
+#include <xmmintrin.h> // SSE
+#include <emmintrin.h> // SSE2
+#include <pmmintrin.h> // SSE3
+#include <tmmintrin.h> // SSSE3
+#include <smmintrin.h> // SSE4.1
+#include <nmmintrin.h> // SSE4.2
+#include <ammintrin.h> // SSE4A
+#include <wmmintrin.h> // AES
+#include <immintrin.h> // AVX
+//#include <zmmintrin.h> // AVX-512 (MIC only)
+// OR
+//#include <intrin.h> // All the above for VS
+ 
+_mm_prefetch(reinterpret_cast<const char*>(pointer), hint);
+ 
+// Hints:
+// _MM_HINT_T0 - load to L1 data cache
+// _MM_HINT_T1 - load to L2 data cache
+// _MM_HINT_T2  - load to L3 data cache (if exist)
+// _MM_HINT_NTA - load to L1 data cache for quick read and mark for removal
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+It is important to note, that there is currently mechanism similar to proposed:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ C
+// Since SSE 
+void _mm_stream_pi(__m64 *p, __m64 a); 
+void _mm_stream_ps(float *p, __m128 a);
+ 
+// Since SSE2
+void _mm_stream_si32(int *p, int a);
+void _mm_stream_si64(int64* p, int64 a);
+void _mm_stream_si128(int *p, __m128i a);
+void _mm_stream_pd(double *p, __m128d a);
+ 
+// Since SSE4A (AMD only)
+void _mm_stream_sd(double *p, __m128d a);
+void _mm_stream_ss(float *p, __m128 a);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The difference is that streaming functions work in load-modify-write mode (therefore stream names) where source and destination location is thesame. As a result they evict cache lines on which computation was performed as fast as they are fully overwritten. Proposed new prefetch hint would allow us to modify data and write the result into different memory location.
+
+On MIC architectures Intel introduced plenty of new prefetch functions (like gather prefetch). They can be used under <code>__MIC__</code> ifdef ( for eg. on Intel Xeon Phi ). There is also group of new hints <code>_MM_HINT_ET1</code> that prefetch cache line with intention of writing (data in Exclusive state). But it’s not available in headers provided with Visual Studio 2013. For more information check [Intel Intrinsics Guide](https://software.intel.com/sites/landingpage/IntrinsicsGuide/).
+
+<big>Bibliography</big>
+
+[#Ref1]: http://www.intel.com/content/dam/www/public/us/en/documents/manuals/64-ia-32-architectures-optimization-manual.pdf ( 2.2.5.1 Load and Store Operation Overview )
+
+<!--
+https://www.intel.com/content/www/us/en/content-details/814198/intel-64-and-ia-32-architectures-optimization-reference-manual-volume-1.html
+-->
+
+[#Ref2]: http://en.wikipedia.org/wiki/MESI_protocol
+
+
+<!-- Markdeep: --><style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="markdeep.min.js" charset="utf-8"></script><script src="https://morgan3d.github.io/markdeep/latest/markdeep.min.js" charset="utf-8"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
