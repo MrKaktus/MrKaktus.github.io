@@ -58,6 +58,10 @@ The difference is that streaming functions work in load-modify-write mode (there
 
 On MIC architectures Intel introduced plenty of new prefetch functions (like gather prefetch). They can be used under <code>__MIC__</code> ifdef ( for eg. on Intel Xeon Phi ). There is also group of new hints <code>_MM_HINT_ET1</code> that prefetch cache line with intention of writing (data in Exclusive state). But it’s not available in headers provided with Visual Studio 2013. For more information check [Intel Intrinsics Guide](https://software.intel.com/sites/landingpage/IntrinsicsGuide/).
 
+!!! 27th February 2025
+    While re-visiting this post after the years, I think it might be little too convoluted. At the time I didn't know that what it really boils down to, is ability to hint if given
+    memory region should be treated with "no-write-allocate" policy. You can find more about it [here](https://www.cs.cornell.edu/courses/cs3410/2013sp/lecture/18-caches3-w.pdf).
+
 <big>Bibliography</big>
 
 [#Ref1]: http://www.intel.com/content/dam/www/public/us/en/documents/manuals/64-ia-32-architectures-optimization-manual.pdf ( 2.2.5.1 Load and Store Operation Overview )
