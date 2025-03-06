@@ -1,61 +1,26 @@
 **3015 Solar System**
 *7 September 2000 (DOS, PC)*
 
-
 ![](title.png) ![](drunk.png) 
 
 ![](apartment.png) ![](bar.png) 
 <center>*Some of the hand written vector art in the game.*</center>
 
-[3015_Solar_System_(patched).zip]("3015_Solar_System_(patched).zip")
+<!-- 
+    Game binary sometimes get detected as having virus. 
+    Thats not true, but I need to find better way to generating its binary.Currently I use QB64.
 
-<style type="text/css">
-.dosbox-container { width: 640px; height: 400px; }
-</style>
-
-<div id="dosbox"></div>
-<br/>
-<button onclick="dosbox.requestFullScreen();">Make fullscreen</button>
-<script type="text/javascript" src="https://js-dos.com/cdn/js-dos-api.js"></script>
-<script type="text/javascript">
-var dosbox = new Dosbox({
-    id: "dosbox",
-    onload: function (dosbox) {
-        dosbox.run("https://js-dos.com/cdn/digger.zip", "./DIGGER.COM");
-    },
-    onrun: function (dosbox, app) {
-        console.log("App '" + app + "' is runned");
-    }
-});
-</script>
-
-
-<!--  -->
-
-<div id="digger" class="dosbox-default"></div>
-<p><br /><a id="fullscreen_digger" href="javascript: void 0;" class="icon-resize-full">Fullscreen</a></p>
-
-<script type="text/javascript">
-  var dosbox_digger = new Dosbox({
-    id: "digger",
-    onload: function (dosbox) {
-      dosbox_digger.run("https://js-dos.com/cdn/digger.zip", "./DIGGER.COM");
-    },
-    onrun: function (dosbox, app) {
-      console.log("App '" + app + "' is runned");
-    }
-  });
-
-  document.getElementById("fullscreen_digger").addEventListener("click", function() {
-    dosbox_digger.requestFullScreen();
-  });
-</script>
-
-<!--more-->
-
-
+    [3015_Solar_System_(patched).zip]("3015_Solar_System_(patched).zip")
+-->
 
 <!--
+QBASIC.EXE /RUN ./SOSYSTEM.BAS
+
+"http://mrkaktus.github.io/games/2000_3015_Solar_System/3015SolarSystemOnline.zip", "./QBASIC.EXE"
+
+http://mrkaktus.github.io/games/2000_3015_Solar_System/2000_3015_Solar_System.html
+http://mrkaktus.github.io/games/2000_3015_Solar_System/3015SolarSystemOnline.zip
+
 QBasic
 Was working on all the vector art completely offline, calculating offsets in memory, and writing down "turtle" movements in notebook while on summer holiday.
 
