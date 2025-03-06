@@ -30,6 +30,30 @@ var dosbox = new Dosbox({
 </script>
 
 
+<!--  -->
+
+<div id="digger" class="dosbox-default"></div>
+<p><br /><a id="fullscreen_digger" href="javascript: void 0;" class="icon-resize-full">Fullscreen</a></p>
+
+<script type="text/javascript">
+  var dosbox_digger = new Dosbox({
+    id: "digger",
+    onload: function (dosbox) {
+      dosbox_digger.run("https://js-dos.com/cdn/digger.zip", "./DIGGER.COM");
+    },
+    onrun: function (dosbox, app) {
+      console.log("App '" + app + "' is runned");
+    }
+  });
+
+  document.getElementById("fullscreen_digger").addEventListener("click", function() {
+    dosbox_digger.requestFullScreen();
+  });
+</script>
+
+<!--more-->
+
+
 
 <!--
 QBasic
