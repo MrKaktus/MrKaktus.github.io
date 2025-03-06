@@ -9,11 +9,39 @@
 
 [3015_Solar_System_(patched).zip]("3015_Solar_System_(patched).zip")
 
+<style type="text/css">
+.dosbox-container { width: 640px; height: 400px; }
+</style>
+
+<div id="dosbox"></div>
+<br/>
+<button onclick="dosbox.requestFullScreen();">Make fullscreen</button>
+<script type="text/javascript" src="https://js-dos.com/cdn/js-dos-api.js"></script>
+<script type="text/javascript">
+var dosbox = new Dosbox({
+    id: "dosbox",
+    onload: function (dosbox) {
+        dosbox.run("./3015SolarSystemOnline.zip", "./QBASIC.EXE /RUN ./SOSYSTEM.BAS");
+    },
+    onrun: function (dosbox, app) {
+        console.log("App '" + app + "' is runned");
+    }
+});
+</script>
+
+
 
 <!--
 QBasic
 Was working on all the vector art completely offline, calculating offsets in memory, and writing down "turtle" movements in notebook while on summer holiday.
 
+2000/09/07 - 3015 Solar System
+       (DOS, QBasic)
+       Adventure game with vector art.
+
+Buying oil to local robot bartender,
+Cheating robot crupier at the roulette.
+Saving local drunk from dehydration.
 
 TODO: Link to binary (after testing it still works)
 -->
