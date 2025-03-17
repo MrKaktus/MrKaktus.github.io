@@ -1,0 +1,157 @@
+**DosGL**
+*2004 (DOS, C & x86 Assembly)*
+
+Versions:
+<br>v1.1 - 12 December 2004
+<br>v1.0 - 10 December 2004
+
+Graphics library for DOS written in C and Assembly (Borland C++ environment). 
+It includes graphic driver based on VESA BIOS Extension (VBE), 
+which allows application to switch graphics card into one 
+of the high resolution modes exposed by VESA 2.0. While 
+regular DOS applications could only display graphics using VGA 
+modes like 320x200 in 256 colors, this driver allowed rendering
+in resolutions as high as 1024x768 in full 32bpp.
+
+Rendering in higher resolutions, means using higher resolution
+bitmaps, and thus requires much more memory than 1MB exposed 
+in Real Mode. DosGL solves this problem by using extended 
+memory manager (XMM) to store assets in system memory above 1MB.
+
+Final DOS limitation to overcome, is fact that graphics 
+card framebuffer in VRAM, is visible to CPU only through 
+64KB memory region in Real Mode memory. It's called
+"banked mode", with mentioned region being "window"
+into cards framebuffer.
+
+This mean that to fill whole screen, DosGL driver needs to 
+re-map that window, into different portions of the framebuffer 
+multiple times. For example in 1024x768 @ 32bpp mode, 
+framebuffer size is equal to 3145728 bytes (3 MB). To 
+gradually fill whole frame, it requires switching that 
+mapping exactly 48 times each time frame is presented. 
+
+Switching of that mapping is costly and thus DosGL have 
+its own framebuffer allocated in XMS memory. This way all 
+the graphics operations happen inside of XMS, and 
+only finally composed image is being blitted part by part 
+from XMS through Real Mode window into actual framebuffer 
+for presentation.
+
+Due to above limitations DosGL APIs are limited to blitting
+rectangular regions (with and without transparency) from
+assets to framebuffer. Loading assets from BMP files,
+displaying text using bitmap fonts and mouse driver are
+provided as well for convenience. 
+
+This is more than enough to write compelling 2D games.
+DosGL was successfully used in few projects at the time,
+not only by me but also by my collegues. I consider it
+precursor to game engine that I've started developing 
+few years later.
+
+Source code, samples and documentation:
+<br>[DosGL v1.1](DosGL_final_2.rar)
+
+One way to properly overcome all above limitations would
+be to switch CPU into Protected Mode, and use VESA 3.0.
+But at that point I got to conclusion that it would be 
+better to write new operating system for 386 from scratch,
+which would also let me have other missing features like
+multi-process support and threads.
+
+
+
+
+
+
+
+
+<!--
+Temporary notes:
+
+In:
+H:\@ OLD\DATA CORRUPTED\MOJEGRY\ENGINE
+
+2003/06/25 - Biblioteka XMS 1.0 (Turbo Pascal)
+             UXMS.PAS
+             H:\@ OLD\DATA CORRUPTED\MOJEGRY\ENGINE\Ksiazka\Biblioteka XMS 1.0
+             
+
+     07/10 - UXMSHI.PAS
+             Graphics library using VBE and XMS to load images from .TEX file and display them without scaling on the screen.
+     07/12 - UTEXTNOR.PAS
+             H:\@ OLD\DATA CORRUPTED\MOJEGRY\ENGINE\Ksiazka\Konwerter BMP do BM 1.0
+
+     01/24 - VBE.asm
+     06/29 - VBE.PAS
+             VESA BIOS Extension library allowing display mode switching between VGA and VESA modes as well as clearing of framebuffer.
+             H:\@ OLD\DATA CORRUPTED\MOJEGRY\ENGINE\Ksiazka\Konwerter BMP do TEX 1.0
+
+     07/20 - VBE.PAS
+     07/21 - UMOUSE.PAS
+     07/22 - DPMI1.PAS (early test of switching DOS into protected mode?)
+             H:\@ OLD\DATA CORRUPTED\MOJEGRY\ENGINE
+
+2003/07/12 - Konwerter BMP do BM 1.0 (Turbo Pascal)
+2003/07/12 - Konwerter BMP do TEX 1.0 (Turbo Pascal)
+2003/07/12 - Konwerter BMP do TEX 1.1 (Turbo Pascal)
+
+2003/10/05 - EMS (podstawowa biblioteka i test alokacji i zwolnienia pamieci)
+             H:\@ OLD\DATA CORRUPTED\MOJEGRY\ENGINE\EMS
+
+2003/10/11 - KarolGL (Turbo Pascal)
+             Was only dumping VESA info and modes list?
+
+2004/05/30 - VESAC (few C functions operrating on VBE)
+             H:\@ OLD\DATA CORRUPTED\MOJEGRY\ENGINE\C
+
+     VBE,      {<- Obsluga VESY (wywolania trybow itd)              }
+     UXMS,     {<- Procedury podstawowe do obslugi XMS              }
+     UXMSHI,   {<- Procedury do obslugi Vesy i danych w XMS         }
+     UTEXTNOR; {<- Procedury dodatkowe do wyswietlania w trybie TXT }
+
+
+             
+ACD OS:
+
+2003/10/06 - First source files in:
+             H:\@ OLD\DATA CORRUPTED\MOJEGRY\ENGINE\OS\On.asm
+
+
+
+- it was project to pass High School programming class
+- after all , all this limitations pushed me into writing ACD OS
+
+DosGL can loading whole, or portion of image 
+stored in BMP file, and treating it as either bitmap or sprite. 
+When treating it as sprite, application can specify at load
+time, which color is representing transparency (in both RGB 
+and palette modes). Application can then use those assets
+to display them on the screen in whole, or only their rectangular
+sub-region. It also provides helper methods for displaying 
+text with bitmap fonts, and mouse driver.
+
+Rendering sprites and fonts in those high resolution modes
+boiled down to blitting them to the screen, through copying 
+memory between XMS and Real Mode memory. Thats where graphics 
+card current framebuffer in VRAM, would be mapped into 64KB 
+"banked" region accessible by CPU.
+
+Another key component is its use of extended memory manager 
+(XMM) to store and manage both: display driver framebuffers 
+for selected display modes, as well as bitmap sprites and fonts.
+
+- Rendering in VESA high resolution modes.
+- Loading opaque and transparent sprites from BMP
+- Displaying sprites or their portions on the screen
+- Loading bitmap fonts
+- Rendering text using given font on the screen
+
+I wrote it, as I needed simple
+way of loading images and displaying them on screen for sprite based
+animations in my games. Key feature of this library was support for
+high resolution display modes through VESA 3.0. 
+-->
+
+<!-- Markdeep: --><style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="markdeep.min.js" charset="utf-8"></script><script src="https://morgan3d.github.io/markdeep/latest/markdeep.min.js" charset="utf-8"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
