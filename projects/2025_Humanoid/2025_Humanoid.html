@@ -1,0 +1,139 @@
+
+**Humanoid robot**
+*2025- (Ubuntu)*
+
+Building humanoid robot.
+
+
+I always wanted to build robots, and I dreamt about building humanoid ones. 
+<!--
+Till recently those dreams were unreachable due to high costs, my lack of 
+experience in the field of robotics, and lack 
+Recently with advent of AI, everything changed. Emergence of LLMs and following
+them VLA and 
+
+What I want to say:
+- Till reently didn't had a chance to work on that
+- AI enabled humanoid roboitcs to be finally viable
+- Similarly developments in drones technology (motors and batteries)
+- Several open source projects:
+  - Berkeley Humanoid Robot Lite
+    https://berkeley-humanoid-lite.gitbook.io/docs/
+  - Roboto Origin
+    https://github.com/Roboparty/roboto_origin
+
+
+
+Berkeley Humanoid Robot bugs:
+
+Torso:
+- 2020 profile connectors were not described nor included in the BOM.
+- 65mm screws for stoppers were not in the BOM.
+
+Gearbox:
+- insert screws in opposite order without tightening them
+- then go one more time after all in the same order, doing final tightening
+- this ensures part is assembled with equal distribution of force
+
+M6C12 motor:
+- screws are 60mm not 55mm
+- mounting holes for rotary encoder are spaced too far away, and its even seen on their assembly video
+  - this requires motor shell CAD redesign
+- control board soldering points are very fragile and tension should not be put on CAN cables attached to it, yet there is no notion of wiring in the project
+  - no notion of having some XT30/XT60 ports assembled into the motor housing to prevent those wires fro being pulled
+  - in general there is no information on wires mounting at all in the project (neither it is taken into notice in parts design)
+  - so in original robot those cables just dangle freely attached by ziplocks
+
+- 0.1g needs to be sanded off due to print imprecisions on each output shaft front part
+
+- Stopper U R in CAD is really Left leg Stopper U (Left) - and vice versa
+  - Mislabeled under left hip Yaw, when its Pitch!
+  
+
+M5010 motor:
+- screws should be 58mm not 50mm, but such are not produced so use 60mm and expect them to stick out ~2mm
+
+- have one crew readyt when hot inserting ports, if your hand slips and it gets tilted, quickly screw screw into it and correct it anle so its straight (while still hot)
+- plastic will push insert up a little bit while too hot
+- 180-200 for hot inserting
+- start with the bottom disk when inserting them on shaft
+- hold one disk fixed in output gear, and rotate second disk around the bearing until all the holes have opposite location, and both discs fit the output gear (can be lowered into it).
+- Motor shaft has 4mm diameter. M4 hex stands needs to be drilled into, to make it fit. -> this require 4mm drillbit that can handle steel
+- motor and input shaft prints are not perfect and have ~0.5mm gap/loose when hex stand is inserted into them.
+  TODO: how to solve?
+  - printed calibration cube with one layer width: got 0.48mm instead of 0.45mm
+  - so my printer is slightly over extruding
+  - new flow = 0.45 / measured_thickness
+  - got 0.48 so: flow = 0.45 / 0.48 = 0.9375 -> 94% 
+  - Filaments > Filament > Filament > Extrusion Multiplieer: change from 1 to 0.94
+  
+  - This was not enough. Next:
+    - XY compensation.
+    - Negative one INCREASES hole sizes, but DECREASES overall size. -> Negative: print "starved / thinned"
+    - Positive one DECREASES hole size, but INCREASES overall size.  -> Positive: print "swollen"
+    -> +0.05mm is perfect for motor shaft
+
+Rotary encoder:
+- Use M2x4mm screws with washers on top side (as board holes are too big)
+- Board components barely fit into internal hole (may need to use washers on the internal side too).
+- Use 1.5mm hex key
+
+Body:
+- no information how to connect power source (battery) to PC
+- no information how to connect arduino + IMU to PC nor its firmware to use?
+- no information at all about how grippers are connected / programmed to rest of robot.
+- no info about length of screws that should be used to connect hips part to frame.
+
+Arm:
+- no info about length of scews that should be used to connect first 5010 engine to arm main engine.
+  - looks like m3x20mm for attaching to big gearbox. they stick out around 1mm which is still fine.
+  - its important bc they can just go in all the way to the gears blocking them....
+  - for attaching to 5010 gearbox they need to be shorter!
+  - m3x16mm for attaching to small gearbox
+- first assemble motors with gearboxes nr: 12,14,16,18
+  - use M3x60mm screws to attach gearboxes to motor housing
+  - then assemble feet gearboxes nr: 21,22
+  - next assemble calf gearboxes nr: 19, 20
+  - next assemble legs knee gearboxes nr: 6, 10
+
+
+TLDR: General concept is described with CAD files etc., but a lot of details are simply missing, or straight out wrong. 
+Which lets me think this project is not actually verified in real life be anybody else to b able to walk.
+
+
+
+Work done:
+- sanding off gearbox parts to achieve proper dimmensions (precision quality issues of cumulative 0.15mm due to print and ball bearings being off)
+- ball bering internal diameter can be 0.05mm narrower than specified (5.95mm instead of 6mm).
+- cleaning all the support structures, brims
+- checking for heat shrinking based distortions on gearbox parts
+- redesigned M6C12 motor shell CAD to fix rotary encoder mounting points psacing, and rotate engine screws mounting points by 45 degrees to move power cables up rather than sideways outside (which caused them to collide with rotating part of motor - strator? )
+
+
+Hot inserting:
+- Iron by default warms up to its max (350deg). This is definitely too much for hot inserting screw nuts into PLA.
+- I found 220-230 degrees temperatores to be good.
+- Let it warm up, even ifit says it reached given temperatore tip didn't.
+- If tip is too cold, nut under the pressure will start to go in, but around it there will be "crater". Attach photo.
+- IF tip is too warm, plastic will be pushing nut out, and will go outside on its own too, bulging around.
+  In such case plastic around nuts looses its structural integrity becoming semi-liquid, it's thus easy in such case for a mistake like skewed nut.
+  To fix such situation you will need to slightly screw in screw from the other side (or if impossible just push it till it touches nut).
+  Then hold nut between that screw and hot iron, and move the surrounding plastic part to correct nut orientation relative to it.
+  Screw should then be able to slide in, and few turns should be able to be made.
+  This can avoid few hours of reprinting the part, but in general its of course better to just use correct temperature.
+- Don't apply too much pressure, just slight one. Let plastic melt on its own and slowly absorb the nut. (attach video).
+
+
+
+
+
+
+
+
+
+-->
+
+["Motor gearbox inner assembly"](./../../posts/2025_00_00_Gearbox_inner_assembly/2025_00_00_Gearbox_inner_assembly.html)
+
+
+<!-- Markdeep: --><style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="markdeep.min.js" charset="utf-8"></script><script src="https://morgan3d.github.io/markdeep/latest/markdeep.min.js" charset="utf-8"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
