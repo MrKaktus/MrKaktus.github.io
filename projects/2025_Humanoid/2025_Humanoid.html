@@ -1,0 +1,76 @@
+
+**Humanoid robot**
+*2025- (Ubuntu)*
+
+![](./0_base.png width=50%)
+
+I always wanted to build robots, and I dreamt about building humanoid ones. 
+Till recently those dreams were unreachable due to high costs, my lack of 
+experience in the field of robotics, and lack of prospects for such project
+to succeed. Recently things have changed significantly with advent of 
+embodied AI. Suddenly functional humanoid robots became tangible again.
+
+In June 2025 [Berkeley Humanoid Robot Lite](https://berkeley-humanoid-lite.gitbook.io/docs/) 
+project was released. This was exactly what I was waiting for. It was 
+first open sourced humanoid robot project, it has full CADs and its BOM is in good 
+price range. I've decided that while it was result of academic work, and thus should
+be taken with a grain of salt, it is best way to build my first humanoid
+and learn everything I can along the way.
+
+Soon after [Roboto Origin](https://github.com/Roboparty/roboto_origin) was 
+released as well, and if I would make a choice today, I would pick it up as
+base for my humanoid robot, as it is way more mature solution. But I made my 
+choice and I plan to go with it.
+
+Basic goal of this project is to build humanoid robot capable of maintaining
+balance and walking. At first I plan to teleoperate it, but in parallel
+I would like to have some kind of VLA model performing basic motor functions
+while open claw being responsible for interaction with the user. 
+
+As its my entry into field of robotics I've decided to document whole process 
+from start to finish in as much detail as possible. This includes 
+all mistakes I will make along the way. I hope that by documenting all that,
+I will help others to see that "you can just build things".
+
+Initial mechanical assembly:
+
+- Introduction
+- Tools
+- Parts
+- Hot inserting
+- Step 1 - Gearmotors mechanical assembly:
+  - [Precision issues](./../../posts/2026_02_27_Precision_issues/2026_02_27_Precision_issues.html)
+  - 5010 motor housing
+  - M6C12 motor housing
+  - M6C12 geartrain
+  - 5010 geartrain
+  - Gearmotors:
+    - Shoulder pitch/flexion (motors M1 & M2)
+    - Leg yaw/abduction (motors M3 & M7)
+    - Leg Roll / Rotation (motors M4 & M8)
+    - Leg Pitch / Flexion (motors M5 & M9)
+    - Knee / Lower leg Pitch / Flexion (motors M6 & M10)
+  - Gearmotors (requiring disassembly):
+    - Shoulder Yaw / Abducion (motors M11 & M15)
+    - Elbow Pitch / Flexion (motors M13 & M17)
+  - Group 2 assembly:
+  - Group (final assembly):
+    - Ankle Pitch / Flexion (motors M19 & M21) (differs from above only with gearbox housing part being integrated into lower leg shank, AND cover having built in stopper!)
+- Step 2 - Actuators:
+  - Rotary encoder and control board wiring
+  - Actuators assembly
+  - Calibration
+- Step 3 - Final assembly
+  - Actuators mechanical assembly (?)
+  - Torso
+    - PC
+    - IMU
+    - CAN boxes
+    - USB extenders
+    - Battery pack
+    - PC power delivery (power supply adapter)
+    - Wiring
+  - Legs and arms assembly
+  - Electrical engineering
+
+<!-- Markdeep: --><style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="markdeep.min.js" charset="utf-8"></script><script src="https://morgan3d.github.io/markdeep/latest/markdeep.min.js" charset="utf-8"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>

@@ -1,0 +1,123 @@
+
+**Gearmotor precision issues**
+*2025- (Ubuntu)*
+
+3d printers are great for prototyping, allowing quick iteration times, but they fall 
+short when sub-milimeter precision is needed. Thats exactly what happened in this 
+project when it came to printing gearmotor parts.
+
+Motor shaft, input shaft and output shaft - those are the key parts that connect motor 
+to reduction geartrain and transfer all the forces that end up moving the robot. Those
+are very small parts, that need to fit perfectly and withstand great forces.
+
+Printing those parts properly came out to be the biggest challenge on the mechanical 
+side of this project, and it took me at least a month of tweaking and experimentation before I 
+finally found satisfying solution (bear in mind its month in "on/off after hours" 
+timescale).
+
+In future designs I plan to switch to CNC milled aluminum for crucial components like
+actuators and structural elements.
+
+
+## Encountered issues
+
+
+### Motor shaft and input shaft 
+
+![Zoom in on hex stand being loose in M6C12 motor shaft stiffener.](./Precision_1_800.jpg)
+
+Both motor and input shaft prints came out to have internal diameter too big by about
+~0.5mm, causing inserted into them hex stands to be loose.
+
+### Output shaft front
+
+I've spent most of my time trying to get M6C12 output shaft front to print within 
+acceptable precision limits. The biggest issue was that 6 x 10 × 3mm ball bearings
+did not fit on output shaft front six columns. Some bearings themselves came out to
+have internal diameter 0.05mm narrower than specified (5.95mm instead of 6mm). At 
+the same time mentioned columns had their outer diameter varying in size by 0.15mm.
+Both errors compounded preventing bearings insertion.
+
+As WA to this issue, I've decided to manually sand off mentioned pillars (six on each 
+output shaft front part) to reduce their diameter to ~5.95mm. To do this I bought sand 
+paper with P220 grit/grain, and used strips of it to sand those pillars off with my
+fingers. It was tedious and time consuming work that ended up with blisters, as there 
+were 10 such parts to sand off. Thakfully by the time I've started assembling 5010
+geartrains, I've found solution to mentioned precision issues (which was combination 
+of all corrections described below).
+
+### Gears
+
+Gears got impacted by heat disperion related shrinking. Distortions were so bad that
+when assembled, those gears wouldn't fit into gearbox housing, or if they did, they
+wouldn't be able to rotate in it.
+
+![Warped gears on the left vs correct one on the right.](./Precision_2_800.jpg)
+
+
+## Corrections
+
+
+### Belts tension
+
+While it is one of complete basics of 3d printing, and its not directly related to gearmotor
+precision issues, its very important to remember about regular testing of belts tension, and 
+its adjustment. It was first time, when I was 3d printing anything in such volume. Spools
+of fillament would go one after another, and I forgot to tune belts tension after each one
+was finished (which I do now). Omission to do that lead to below failure:
+
+![Too loose Y-axis belt.](./Precision_3_800.jpg)
+
+### Overextruding
+
+To verify if 3d printer is not overextruding, I've printed calibration cube.
+With extrusion width set to 0.45mm and 1 perimiter, cube wall should be exactly 0.45mm thick.
+
+![Calibration cube with walls too thick by 0.03mm](./Precision_4_800.jpg)
+
+As you can see I've got cube walls 0.03mm thicker than expected. This means my printer was
+indeed slightly overextruding. To fix this I used equation:
+
+  - NewFlow = 0.45 / MeasuredThickness
+  - NewFlow = 0.45 / 0.48
+  - NewFlow = 0.9375
+  - New flow is 94%
+
+In PrusaSlicer options:
+  - Filaments > Filament > Filament > Extrusion Multiplier: changed value from 1 to 0.94
+
+### XY Compensation
+
+Fixing overextrusion wasn't enough. I needed to apply XY compensation on final model,
+to further reduce the error in resulting prints.
+
+PrusaSlicer documentation for XY compensation is really confusing here. It implies that
+provided compensation value will scale size of whole model by adding that value, but thats
+not the case. Before I figured it out I wasted plenty of time on experimenting with this 
+value while trying to solve output shaft precision issues.
+
+![Multiple failed attempts of scaling output shaft.](./Precision_5_800.jpg)
+
+What XY compensation really means is as follows:
+- Negative value INCREASES hole sizes, but DECREASES overall size. Print is sunken / thinned.
+- Positive value DECREASES hole size, but INCREASES overall size. Print is swollen.
+
+Setting this value to +0.05mm finally solved motor and input shaft issues, making them tight 
+when inserting hex standoff into them.
+
+### Shrinking solution
+
+Initially I was printing parts using Hatchbox PLA pure white fillament adviced in original documentation. 
+Things were going ok with first spool, but then US tariffs went in effect. 
+Hatchbox moved its fillament production into USA. Since then, fillament that was supposed to be pure white
+was more of pistachio in color, and its quality went down. I wasn't able to make it properly stick to the
+print bed, and even if I did, it would suffer from mentioned heat disperion related shrinking.
+
+I've switched to Creality PLA white, which has beautiful white color and good printing properties. 
+For printing itself I've decided to print each part separately (instead of filling whole print
+plate with multiple parts), applying brim of 5mm and adding support structures everywhere. I've 
+got to conclusion that its better to be conservative, than wasting time on re-printing warped parts.
+
+
+
+<!-- Markdeep: --><style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="markdeep.min.js" charset="utf-8"></script><script src="https://morgan3d.github.io/markdeep/latest/markdeep.min.js" charset="utf-8"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
