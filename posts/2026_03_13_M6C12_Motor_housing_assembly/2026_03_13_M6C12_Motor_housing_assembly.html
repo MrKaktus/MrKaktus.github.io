@@ -1,0 +1,101 @@
+
+**M6C12 motor housing**
+*2025- (Ubuntu)*
+
+Assembling M6C12 motor housing and motor shaft. 
+Most of the steps are the same as in 5010 housing assembly case, with few small differences.
+Thus its best to open both pages in side-by-side split view.
+
+## Housing
+
+Parts:
+
+- 1x Motor shell (3d printed)
+  - [M6C12_Motor_shell_v1_1.stl](./../../projects/2025_Humanoid/data/stl/M6C12_Motor_shell_v1_1.stl)
+  - [M6C12_Motor_shell_v1_1.3mf](./../../projects/2025_Humanoid/data/3mf/M6C12_Motor_shell_v1_1.3mf)
+
+- 8x M3 Threaded inserts (for attaching to gearbox housing):
+  - [M3 x 4 x 5mm Threaded Insert Knurled Brass Nuts Female Thread Knurled](https://www.amazon.com/gp/product/B0BTYF2MMD)
+
+- 4x M2 Threaded inserts (for mounting rotary encoder):
+  - [M2 x 3 x 3.5mm Threaded Insert Knurled Brass Nuts Female Thread Knurled](https://www.amazon.com/dp/B0B8GN63S2)
+
+<!-- TODO Provide link and write that page
+You can also go to page listing total BOM.
+-->
+
+In original Berkeley Humanoid Lite project, M6C12 motor housing CAD is invalid. Holes for mounting 
+specified rotary encoder are spaced too far apart, making final assembly of M6C12 actuator impossible.
+You can see this issue in original assembly video too.
+Unfortunately I've discovered this after I've 3d printed motor housings for all M6C12 motors in advance.
+This is lesson in itself - to always do initial assembly on one gearbox, gearmotor, actuator, etc. 
+before mass producing all remaining parts of given type.
+
+![Original M6C12 motor shell model with invalid mounting points.](./M6C12_housing_1_800.jpg)
+
+There is another issue with original design. Motor is mounted in a way, that power supply cables are
+routed through the side of the motor housing. That is fine for 5010 motor, as it has different shape,
+but for M6C12 motor is a serious issue, because once its placed in that housing, its pushing those
+power cables slightly up, causing them to collide with rotor.
+
+![Power supply cables dangerously close to rotor.](./M6C12_housing_2_800.jpg)
+
+As I needed to re-print those housings, I've decided to fix above issue along the way. I've rotated all 
+internal holes by 45 degrees. This changed the way power supply cables are routed from the motor. Instead 
+of sticking out on a side, they now bend up to the back of the housing, in direction of rotary encoder
+and controller board. This way they no longer collide with rotor, and can be fully enclosed in final
+actuator housing. We couldn't do it in case of 5010 housing as its too small, but fortunately it is not
+an issue here.
+
+![Parts placement after re-designing motor housing.](./M6C12_housing_3_800.jpg)
+
+Links to motor shell part are already leading to re-designed part which I indicated with 1.1 version.
+Notice also that M6C12 has eight M3 threaded inserts instead of four (as it was in case of 5010 housing).
+
+![Final M3 and M2 threaded inserts locations afer hot inserting.](./M6C12_housing_4_800.jpg)
+
+
+## Rotary encoder magnet 
+
+
+Parts: 
+
+- 1x [MAD M6C12 EEE 150KV Brushless Motor](https://mad-motor.com/products/mad-components-m6c12-eee-industrial-drone-motor?VariantsId=10508)
+
+- 1x Magnet (sourced from rotary encoder package)
+
+Process of attaching rotary encoder magnet on top of motor shaft is the same as in case of 5010 motor.
+
+
+## Housing and motor
+
+
+Parts:
+
+- 4x M3 x 8mm screws (sourced from M6C12 motor box)
+
+![M6C12 motor secured inside of housing with M3x8mm screws.](./M6C12_housing_5_800.jpg)
+
+
+## Motor shaft
+
+
+Parts:
+
+- 1x Motor shaft stiffener (3d printed)
+  - [M6C12_Motor_shaft.stl](./../../projects/2025_Humanoid/data/stl/M6C12_Motor_shaft.stl)
+  - [M6C12_Motor_shaft.3mf](./../../projects/2025_Humanoid/data/3mf/M6C12_Motor_shaft.3mf)
+
+- 4x [M3 x 0.5 x 10mm screws](https://a.co/d/0gWb3teZ)
+
+- 1x [M4 x 15mm Female Threaded Hex Standoff Pillar](https://a.co/d/0b5IcD6g)
+
+Tools:
+
+- 1x [4mm Metric M35 Cobalt Steel Twist Drill Bit](https://a.co/d/0bUsTGEk)
+
+Notice that hex standoff is now 15mm instead of 12mm (as it was in case of 5010 motor shaft).
+
+![Final assembly.](./M6C12_housing_7_800.jpg)
+
+<!-- Markdeep: --><style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="markdeep.min.js" charset="utf-8"></script><script src="https://morgan3d.github.io/markdeep/latest/markdeep.min.js" charset="utf-8"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
