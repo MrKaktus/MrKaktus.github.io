@@ -1,0 +1,161 @@
+
+**5010 motor housing**
+*2025- (Ubuntu)*
+
+Assembling 5010 motor housing and motor shaft.
+
+
+## Housing
+
+
+Parts:
+
+- 1x Motor shell (3d printed)
+  - [5010_Motor_shell.stl](./../../projects/2025_Humanoid/data/stl/5010_Motor_shell.stl)
+  - [5010_Motor_shell.3mf](./../../projects/2025_Humanoid/data/3mf/5010_Motor_shell.3mf)
+
+- 4x M3 Threaded inserts (for attaching to gearbox housing):
+  - [M3 x 4 x 5mm Threaded Insert Knurled Brass Nuts Female Thread Knurled](https://www.amazon.com/gp/product/B0BTYF2MMD)
+
+- 4x M2 Threaded inserts (for mounting rotary encoder):
+  - [M2 x 3 x 3.5mm Threaded Insert Knurled Brass Nuts Female Thread Knurled](https://www.amazon.com/dp/B0B8GN63S2)
+
+<!-- TODO Provide link and write that page
+You can also go to page listing total BOM.
+ -->
+
+![All the parts before assembly.](./Housing_1_800.jpg)
+
+M3 and M2 threaded inserts need to be melted into motor housing using hot inerting process. 
+Housing itself is quite small, so M3 inserts barely fit on its edge. M2 inserts should be 
+placed inside - they will be used to connect rotary encoder circuit board.
+
+TODO: Link: See article about hot inserting process for more details.
+
+![Final M3 and M2 threaded inserts locations afer hot inserting.](./Housing_3_800.jpg)
+
+
+## Rotary encoder magnet
+
+
+Parts:
+
+- 1x [MAD 5010 EEE 110KV Brushless Motor](https://mad-motor.com/products/mad-components-5010-eee?VariantsId=11308)
+
+- 1x Magnet (sourced from rotary encoder package)
+
+![All the parts before assembly.](./Housing_4_800.jpg)
+
+Use glue gun to attach magnet at the back of the motor shaft.
+
+![Rotaty encoder magnet hand placed on motor shaft.](./Housing_5_800.jpg)
+
+!!! WARNING Calibration
+    There is no way to place this magnet perfectly along motor shaft axis. 
+    It will always end up being slightly off-axis. Its more of a question 
+    how much that will be. This will be solved during motor and rotary
+    encoder calibration process (so that its taken into notice when 
+    measuring motor shaft rotation).
+
+![Magnet after securing it with glue gun.](./Housing_6_800.jpg)
+
+
+## Housing and motor
+
+
+Parts:
+
+- 4x M3 x 8mm screws (sourced from 5010 motor box)
+
+![All the parts before assembly.](./Housing_7_800.jpg)
+![5010 motor secured inside of housing with M3x8mm screws.](./Housing_8_800.jpg)
+
+
+## Motor shaft
+
+
+Parts:
+
+- 1x Motor shaft stiffener (3d printed)
+  - [5010_Motor_Shaft.stl](./../../projects/2025_Humanoid/data/stl/5010_Motor_Shaft.stl)
+  - [5010_Motor_Shaft.3mf](./../../projects/2025_Humanoid/data/3mf/5010_Motor_Shaft.3mf)
+
+- 4x [M3 x 0.5 x 10mm screws](https://a.co/d/0gWb3teZ)
+
+- 1x [M4 x 12mm Female Threaded Hex Standoff Pillar](https://a.co/d/07ojR2v6)
+
+Tools:
+
+- 1x [4mm Metric M35 Cobalt Steel Twist Drill Bit](https://a.co/d/0bUsTGEk)
+
+Motor shaft assembly and its further connection to input shaft, in my opinion are the most crucial part of
+the whole robot design. Those shafts will carry all the force from motor to gearbox and further to the limbs.
+It will be exposed to great forces and under constantly changing load. Thats why I expect it to be the first
+thing to break and/or be impacted by assembly imperfections.
+
+![All the parts before assembly.](./Housing_9_800.jpg)
+
+Motor shaft has 4mm diameter. It will be extended with M4x12mm hex standoff pillar inserted onto it. Because
+mentioned hex standoff is threaded, its ID is smaller than 4mm and needs to be slightly widened. To do that, 
+I used 4mm cobalt drill. We want mentioned hex standoff to fit snugly onto motor shaft, to ensure they both
+withstand forces applied to them. Thats why its important to drill through that standoff carefull, just barely
+widening it.
+
+I let drill "fall through" the hex stand, without applying any excessive force to it, thats the only moment 
+when I keep drilling machine on. Then I immediatelly turn it off, so that when I move it up again to pull out 
+drill from the hex standoff, its off already and its not applying any force to that standoff. This way I still feel the 
+resistance when I pull it out, and I know that the ID was only slightly increased, leaving it sill snug fit 
+for motor shaft.
+
+!!! WARNING Calibration
+    If you think at this point its all bonkers, extremely imprecise and gonzo development, you're completely right.
+    Its equally silly like Robert Downey Jr. pretending to build Iron Man suit in the cave. This has nothing to do 
+    with word "precise". Yet its the way to make those parts connect in a prototype. While designing from scratch
+    my next humanoid robot, I plan to rely on proper manufacturing approaches like CNC milling. This definitely 
+    needs higher standards of precision. Hopefully we can mitigate any off-axis errors here with calibration.
+
+![Widening hex stand ID with cobalt dril.](./Housing_10_800.jpg)
+
+To make connection between motor shaft and hext standoff more durable, the two will be surrounded by 3d printed 
+stiffener (called motor shaft too). We need to ensure that insering hext standoff into it will be tight as well.
+Thats where I hit precision issues with the print.
+
+More details you will find in: [Precision issues](./../2026_02_27_Precision_issues/2026_02_27_Precision_issues.html)
+
+When motor shaft stiffener is attached to motor body with M3x10mm screws, 
+original motor shaft (metal one seen in previous photos) is now inside of the 3d printed part, where hex stand 
+will go. M4x12mm hex standoff then needs to be inserted into motor shaft stiffener, and onto that metal shaft
+itself. If the hext standoff hole is not big enough, it won't go all the way in, but there is no way to easily 
+tell if thats the case after the fact. I could use calipers to measure hole depth in metal shaft stiffener and 
+then measure how much of the hex stanoff sticks out, but its much easier to mark it upfront. I simply insert 
+hex stand into 3d printed motor shaft ahead of time, and mark how deep it goes with the marker. 
+
+![Marking how deep hext standoff should go in.](./Housing_11_800.jpg)
+
+If there is any misalignment, or hex standoff inner diameter is not wide enough yet, it won't go all the way in
+onto motor shaft, and instead of one line we will have two, making it obvious.
+
+![Final assembly.](./Housing_12_800.jpg)
+
+
+<!-- Markdeep: --><style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="markdeep.min.js" charset="utf-8"></script><script src="https://morgan3d.github.io/markdeep/latest/markdeep.min.js" charset="utf-8"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
+
+
+
+<!--
+- Motor shaft has 4mm diameter. M4 hex stands needs to be drilled into, to make it fit. -> this require 4mm drillbit that can handle steel
+- motor and input shaft prints are not perfect and have ~0.5mm gap/loose when hex stand is inserted into them.
+  TODO: how to solve?
+  
+  calibration cube,
+
+  - This was not enough. Next:
+    - XY compensation.
+    - Negative one INCREASES hole sizes, but DECREASES overall size. -> Negative: print "starved / thinned"
+    - Positive one DECREASES hole size, but INCREASES overall size.  -> Positive: print "swollen"
+    -> +0.05mm is perfect for motor shaft
+
+-->
+
+As with other 3d printed parts, 
+
