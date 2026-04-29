@@ -1,0 +1,104 @@
+
+**5010 geartrain**
+*2025- (Ubuntu)*
+
+
+Most of the steps for assembling 5010 reduction gearbox geartrain are the same as in M6C12 geartrain assembly case, with few small differences.
+Thus its best to open both pages in side-by-side split view.
+
+## Gears
+
+Parts:
+
+- 2x 5010 gear (3d printed)
+  - [5010_Gear.stl](./../../projects/2025_Humanoid/data/stl/5010_Gear.stl)
+  - [5010_Gear.3mf](./../../projects/2025_Humanoid/data/3mf/5010_Gear.3mf)
+  - (Original name: 5010_Cycloidal_Disk)
+
+- 2x 12 x 18 x 4mm ball bearing (for placing gears on input shaft)
+  - [6701-2RS ball bearing 12mm ID 18mm OD 4mm Bore](https://a.co/d/02LF4ujl)
+
+- 1x 5010 input shaft (3d printed)
+  - [5010_Input_shaft.stl](./../../projects/2025_Humanoid/data/stl/5010_Input_shaft.stl)
+  - [5010_Input_shaft.3mf](./../../projects/2025_Humanoid/data/3mf/5010_Input_shaft.3mf)
+  - (Original name: 6512_Input_Shaft)
+
+<!-- TODO Provide link and write that page
+You can also go to page listing total BOM.
+-->
+
+Process of assembling gears on input shaft is the same as in case of M6C12 geartrain.
+
+
+## Output shaft front
+
+
+Parts:
+
+- 1x 5010 output shaft front (3d printed)
+  - [5010_Output_shaft_front.stl](./../../projects/2025_Humanoid/data/stl/5010_Output_shaft_front.stl)
+  - [5010_Output_shaft_front.3mf](./../../projects/2025_Humanoid/data/3mf/5010_Output_shaft_front.3mf)
+  - (Original name: 6512_Output_Shaft_Front)
+
+- 6x M3 Threaded inserts (attachment points to actuator):
+  - [M3 x 4 x 5mm Threaded Insert Knurled Brass Nuts Female Thread Knurled](https://www.amazon.com/gp/product/B0BTYF2MMD)
+
+- 13x 6 x 10 x 3mm ball bearing (placed between output shaft and gears)
+  - [MR106-2RS ball bearing 6mm ID 10mm OD 3mm Bore](https://a.co/d/08xgLrtE)
+
+- 1x Spacers, set of six (3d printed)
+  - [Output_shaft_spacers.stl](./../../projects/2025_Humanoid/data/stl/Output_shaft_spacers.stl)
+  - [Output_shaft_spacers.3mf](./../../projects/2025_Humanoid/data/3mf/Output_shaft_spacers.3mf)
+  - (Original name: 6512_Cycloidal_Actuator_Spacers)
+
+<!-- TODO Provide link and write that page
+You can also go to page listing total BOM.
+-->
+
+While I've spent a lot of time sanding off M6C12 geartrain output shaft fronts to fit ball bearings onto them,
+in case of 5010 ones, everything just fit right from the start. This saved me a lot of time. Its possible
+that overextrudnig correction did a trick here, as I had that figured out by then.
+
+![Assembled output shaft fronts of motors 13 and 14.](./5010_geartrain_1_800.jpg)
+
+
+## Output shaft back
+
+
+Parts:
+
+- 1x 5010 output shaft back (3d printed)
+  - [5010_Output_shaft_back.stl](./../../projects/2025_Humanoid/data/stl/5010_Output_shaft_back.stl)
+  - [5010_Output_shaft_back.3mf](./../../projects/2025_Humanoid/data/3mf/5010_Output_shaft_back.3mf)
+  - (Original name: 5010_Output_Shaft_Rear)
+
+- 6x M3 Threaded inserts (for attaching output shaft back to the front):
+  - [M3 x 4 x 5mm Threaded Insert Knurled Brass Nuts Female Thread Knurled](https://www.amazon.com/gp/product/B0BTYF2MMD)
+
+<!-- TODO Provide link and write that page
+You can also go to page listing total BOM.
+-->
+
+![Output shaft back with threaded inserts in place.](./5010_geartrain_4_800.jpg)
+
+
+## Geartrain
+
+
+Parts:
+
+- 6x M3 x 0.5 x 25mm screws (for connecting front and back of output shaft)
+  - [12.9 Grade Alloy Steel Metric Machine Hex Socket Screw](https://a.co/d/00OqtjJo)
+
+<!-- TODO Provide link and write that page
+You can also go to page listing total BOM.
+-->
+
+![All the parts before assembly.](./5010_geartrain_2_800.jpg)
+
+Notice that screws are now 25mm instead of 30mm (as it was in case of M6C12 motor geartrain).
+Remember to correctly align gears, so that later whole geartrain fits into the gearbox housing.
+
+![Complete output shaft with gears.](./5010_geartrain_5_800.jpg)
+
+<!-- Markdeep: --><style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="markdeep.min.js" charset="utf-8"></script><script src="https://morgan3d.github.io/markdeep/latest/markdeep.min.js" charset="utf-8"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
