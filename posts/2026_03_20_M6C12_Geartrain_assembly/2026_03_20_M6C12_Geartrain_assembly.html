@@ -1,0 +1,162 @@
+
+**M6C12 geartrain**
+*2025- (Ubuntu)*
+
+Assembling geartrain is the next step after motor housing. It is crucial part of
+actuator just next to motor itself. Its role is to reduce motor rotation speed,
+increasing actuator torque. Below I'm describing process of assembling M6C12 
+reduction gearbox geartrain. Thats the place where I've encountered almost all
+the precision issues. Input shaft, gears, output shaft - all were affected.
+I've described them together with mitigations I took in [Precision issues](./../2026_02_27_Precision_issues/2026_02_27_Precision_issues.html) section.
+
+## Gears
+
+Parts:
+
+- 2x M6C12 gear (3d printed)
+  - [M6C12_Gear.stl](./../../projects/2025_Humanoid/data/stl/M6C12_Gear.stl)
+  - [M6C12_Gear.3mf](./../../projects/2025_Humanoid/data/3mf/M6C12_Gear.3mf)
+  - (Original name: 6512_Cycloidal_Actuator_Cycloidal+Disk)
+
+- 2x 12 x 18 x 4mm ball bearing (for placing gears on input shaft)
+  - [6701-2RS ball bearing 12mm ID 18mm OD 4mm Bore](https://a.co/d/02LF4ujl)
+
+- 1x M6C12 input shaft (3d printed)
+  - [M6C12_Input_shaft.stl](./../../projects/2025_Humanoid/data/stl/M6C12_Input_shaft.stl)
+  - [M6C12_Input_shaft.3mf](./../../projects/2025_Humanoid/data/3mf/M6C12_Input_shaft.3mf)
+  - (Original name: 6512_Input_Shaft)
+
+<!-- TODO Provide link and write that page
+You can also go to page listing total BOM.
+-->
+
+Gears assembly with input shaft is pretty straightforward and can be documented with few photos:
+
+![All the parts before assembly.](./Gears_1_800.jpg)
+![6701-2RS ball bearings inserted into gears.](./Gears_2_800.jpg)
+![Input shaft inserted into first gear bearing.](./Gears_3_800.jpg)
+![Second gear inserted on top of input shaft.](./Gears_4_800.jpg)
+![Gears and input shaft assembled together.](./Gears_5_800.jpg)
+
+Notice how small is the gap between both gears. They need to remain perfectly perpendicular to input shaft axis.
+I'm sceptical of this holding up during regular actuator use. I feel that current parts are too small to be made
+out of PLA and that they will get tilted/warped easily as this fillament is too soft for this kind of use. I might be
+wrong of course. I assume the only way to know is to have those actuators in use for prolonged period of time.
+
+## Output shaft front
+
+Parts:
+
+- 1x M6C12 output shaft front (3d printed)
+  - [M6C12_Output_shaft_front.stl](./../../projects/2025_Humanoid/data/stl/M6C12_Output_shaft_front.stl)
+  - [M6C12_Output_shaft_front.3mf](./../../projects/2025_Humanoid/data/3mf/M6C12_Output_shaft_front.3mf)
+  - (Original name: 6512_Output_Shaft_Front)
+
+- 6x M3 Threaded inserts (attachment points to actuator):
+  - [M3 x 4 x 5mm Threaded Insert Knurled Brass Nuts Female Thread Knurled](https://www.amazon.com/gp/product/B0BTYF2MMD)
+
+- 13x 6 x 10 x 3mm ball bearing (placed between output shaft and gears)
+  - [MR106-2RS ball bearing 6mm ID 10mm OD 3mm Bore](https://a.co/d/08xgLrtE)
+
+- 1x Spacers, set of six (3d printed)
+  - [Output_shaft_spacers.stl](./../../projects/2025_Humanoid/data/stl/Output_shaft_spacers.stl)
+  - [Output_shaft_spacers.3mf](./../../projects/2025_Humanoid/data/3mf/Output_shaft_spacers.3mf)
+  - (Original name: 6512_Cycloidal_Actuator_Spacers)
+
+<!-- TODO Provide link and write that page
+You can also go to page listing total BOM.
+-->
+
+![All the parts before assembly.](./Output_shaft_front_1_800.jpg)
+![Placement of threaded nuts before hot inserting.](./Output_shaft_front_2_800.jpg)
+![Hot inserting process.](./Output_shaft_front_3.mov)
+
+There is more to hot inserting process than it seems. I've described all the details in Hot inserting section.
+<!-- TODO Provide link
+[Hot inserting](./../2026_02_27_Hot_inserting/2026_02_27_Hot_inserting.html) section.
+-->
+
+![First layer of ball bearings inserted on output shaft columns.](./Output_shaft_front_5_800.jpg)
+
+As described before, I had plenty of precision issues with all the parts composing geartrain. 
+In case of output shaft front, its six columns were too thick to insert MR106-2RS ball bearings
+onto them. Notice there is also one extra bearing inserted in the center. Its there to support
+end of input shaft.
+
+![Bearing spacers inserted on top of MR106-2RS ball bearings.](./Output_shaft_front_6_800.jpg)
+![Output shaft front assembled with second layer of bearings on top.](./Output_shaft_front_8_800.jpg)
+
+
+## Output shaft back
+
+
+Parts:
+
+- 1x M6C12 output shaft back (3d printed)
+  - [M6C12_Output_shaft_back.stl](./../../projects/2025_Humanoid/data/stl/M6C12_Output_shaft_back.stl)
+  - [M6C12_Output_shaft_back.3mf](./../../projects/2025_Humanoid/data/3mf/M6C12_Output_shaft_back.3mf)
+  - (Original name: 6512_Output_Shaft_Rear)
+
+- 6x M3 Threaded inserts (for attaching output shaft back to the front):
+  - [M3 x 4 x 5mm Threaded Insert Knurled Brass Nuts Female Thread Knurled](https://www.amazon.com/gp/product/B0BTYF2MMD)
+
+<!-- TODO Provide link and write that page
+You can also go to page listing total BOM.
+-->
+
+Output shaft back needs to get 6 threaded nuts hot inserted as well. 
+Those will be attachment points for screws connecting both parts together.
+
+![Output shaft back (left) and front (right) with threaded inserts in place.](./Output_shaft_back_800.jpg)
+
+
+## Geartrain
+
+
+Parts:
+
+- 6x M3 x 0.5 x 30mm screws (for connecting front and back of output shaft)
+  - [12.9 Grade Alloy Steel Metric Machine Hex Socket Screw](https://a.co/d/015ZhZix)
+
+<!-- TODO Provide link and write that page
+You can also go to page listing total BOM.
+-->
+
+![All the parts before assembly.](./Output_shaft_1_800.jpg)
+![Gears inserted onto output shaft front.](./Output_shaft_2_800.jpg)
+
+Notice input shaft direction - its end is placed in the central ball bearing. There is also
+one more thing that needs to be done before closing output shaft and final assembly. We need
+to ensure, that both gears are properly placed relative to each other. To do that I've 3d 
+printed M6C12 gearbox housing that normally is not used in robot assembly (you can
+also use any of the gearbox housing parts used for gearmotor assemblies). Simply try to slide
+it from the top onto both gears. See example below:
+
+![Incorrectly aligned gears.](./Output_shaft_4_800.jpg)
+
+When gears are incorrectly aligned, like in photo above, second gear will collide with 
+housing teeth, and thus prevent geartrain from fully sliding into it. In such case, you
+will need to remove gears from output shaft front, and rotate one of them relative to
+other into alternate position. All six holes in gears need to overlap each other in 
+identical way, and allow reinsertion onto output shaft front. Once you do that, try 
+sliding gearbox housing on top of it again. Unfortunately I haven't found recipie on 
+how to reliably align those gears in one go, so its a process of trial and error until
+you find proper position (as seen below).
+
+![Correctly aligned gears fit into gearbox housing.](./Output_shaft_5_800.jpg)
+
+Once the proper alignment is done, output shaft back can be placed on top of output shaft
+front for final assembly.
+
+![Output shaft ready for assembly (back).](./Output_shaft_6_800.jpg)
+![Output shaft ready for assembly (front).](./Output_shaft_7_800.jpg)
+![Screws inserted from the front.](./Output_shaft_8_800.jpg)
+
+While connecting 3d printed parts together using screws, its important to remember to not
+overtighten them. When several screws need to be used, I first drive them all in, leaving 
+them slightly loose. Then, I tighten them all down, working in pairs of screws located on 
+opposite sides to distribute any tension evenly.
+
+![Complete geartrain.](./Output_shaft_9_800.jpg)
+
+<!-- Markdeep: --><style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="markdeep.min.js" charset="utf-8"></script><script src="https://morgan3d.github.io/markdeep/latest/markdeep.min.js" charset="utf-8"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
