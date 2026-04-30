@@ -1,0 +1,93 @@
+
+**Shoulder pitch/flexion gearmotor**
+*2025- (Ubuntu)*
+
+![](./Shoulders.png width=50%)
+
+Assembling shoulder pitch/flexion gearmotor (gearbox and motor).
+It is used by M1 and M2 motors in left and right arm, and its assembly
+is identical for both.
+
+
+## Gearbox
+
+
+Parts:
+
+- 1x M6C12 gearbox housing front (3d printed)
+  - [M6C12_Gearbox_housing_front.stl](./../../projects/2025_Humanoid/data/stl/M6C12_Gearbox_housing_front.stl)
+  - [M6C12_Gearbox_housing_front.3mf](./../../projects/2025_Humanoid/data/3mf/M6C12_Gearbox_housing_front.3mf)
+
+- 1x Shoulder gearbox housing middle (3d printed)
+  - [M6C12_Shoulder_gearbox_housing_middle.stl](./../../projects/2025_Humanoid/data/stl/M6C12_Shoulder_gearbox_housing_middle.stl)
+  - [M6C12_Shoulder_gearbox_housing_middle.3mf](./../../projects/2025_Humanoid/data/3mf/M6C12_Shoulder_gearbox_housing_middle.3mf)
+  - (Original name: obj_2_6512_Housing_Base_Housing_Middle)
+
+- 1x Shoulder gearbox housing back (3d printed)
+  - [M6C12_Shoulder_gearbox_housing_back.stl](./../../projects/2025_Humanoid/data/stl/M6C12_Shoulder_gearbox_housing_back.stl)
+  - [M6C12_Shoulder_gearbox_housing_back.3mf](./../../projects/2025_Humanoid/data/3mf/M6C12_Shoulder_gearbox_housing_back.3mf)
+  - (Original name: obj_1_6512_Housing_Base_Housing_Front)
+
+- 2x 55 x 72 x 9mm ball bearing (for securing geartrain in housing)
+  - [6811ZZ ball bearing 55mm ID 72mm OD 9mm Bore](https://www.amazon.com/gp/product/B082PW8F3S?th=1)
+
+- 1x M6C12 geartrain [(previously assembled)](./../2026_03_20_M6C12_Geartrain_assembly/2026_03_20_M6C12_Geartrain_assembly.html)
+
+<!-- TODO Provide link and write that page
+You can also go to page listing total BOM.
+ -->
+
+Shoulder gearbox housing back looks to be originally designed as a front part, yet its located at the back of the 
+gearbox (on a side where motor housing gets attached), thus I've renamed it in my project to correctly reflect that.
+
+![All the parts before assembly.](./Gearmotor_1_800.jpg)
+
+I start by inserting ball bearing into housing front part. Then I insert geartrain into it (from output shaft front side).
+By now, used geartrain should have properly aligned gears. This allows me to easily slide whole stack into gearbox housing.
+
+![Geartrain inserted into shoulder gearbox housing middle.](./Gearmotor_2_800.jpg)
+
+I can then secure whole geartrain with second ball bearing, and close gearbox with its back part.
+
+![Secured geartrain with both ball bearings.](./Gearmotor_3_800.jpg)
+![Complete shoulder gearbox (side, back view).](./Gearmotor_4_800.jpg)
+![Complete shoulder gearbox (top, back view).](./Gearmotor_5_800.jpg)
+
+
+## Gearmotor
+
+
+Parts:
+
+- 1x M6C12 motor housing [(previously assembled)](./../2026_03_13_M6C12_Motor_housing_assembly/2026_03_13_M6C12_Motor_housing_assembly.html)
+
+- 1x M6C12 shoulder pitch/flexion gearbox (assembled above)
+
+- 8x M3 x 0.5 x 60mm screws (for connecting gearbox and motor housing)
+  - [Partially Threaded Alloy Steel 12.9 Grade Hex Socket Head Cap Screws](https://a.co/d/03GjSVTq)
+
+<!-- TODO Provide link and write that page
+You can also go to page listing total BOM.
+ -->
+
+This is another place where original project is wrong. Screws are 60mm instead of 55mm, 
+as those are too short to connect both parts. 
+
+![All the parts before assembly.](./Gearmotor_6_800.jpg)
+
+Assembling final gearmotor requires "key" bump on 3d printed motor shaft stiffener to match keyhole in 3d printed 
+input motor shaft. We also expect hext standoff to fit snugly into that input motor shaft. Everything needs to align 
+and fit perfectly, otherwise it won't work.
+
+![Keyhole in input shaft.](./Gearmotor_7_800.jpg)
+
+As you can see it is very thight space once both parts are placed on joining them screws. I try to align key bump
+as much as possible ahead of time, and then once I push motor housing towards gearbox housing, I delicately turn motor
+rotor to get final fit. Once that happens motor shaft and hex standoff should finally click into place and motor housing should fully slide next to gearbox
+leaving no gap between the two.
+
+![Key extrusion on motor shaft side.](./Gearmotor_8_800.jpg)
+
+![Final assembly.](./Gearmotor_9_800.jpg)
+
+<!-- Markdeep: --><style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="markdeep.min.js" charset="utf-8"></script><script src="https://morgan3d.github.io/markdeep/latest/markdeep.min.js" charset="utf-8"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
